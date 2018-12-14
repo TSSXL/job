@@ -169,7 +169,8 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+  $borderColor:#000000;
 .contain{
   background-color: #a1a1a1;
   height:800px;
@@ -181,7 +182,6 @@
     height:140px;
     width:100%;
     margin-top: 30px;
-    border-bottom: 2px solid #000000;
   }
   i{
     color: #4d4d4d;
@@ -189,28 +189,23 @@
   .want{
     height:80px;
     width:100%;
-    border-bottom: 2px solid #000000;
   }
   .like{
     height:150px;
     width:100%;
-    border-bottom: 2px solid #000000;
     overflow: auto;
   }
   .get{
     height:80px;
     width:100%;
-    border-bottom: 2px solid #000000;
   }
   .doWhat{
     height:60px;
     width:100%;
-    border-bottom: 2px solid #000000;
   }
 .aboutMe{
   height:110px;
   width:100%;
-  border-bottom: 2px solid #000000;
 }
   p{
     font-size: 20px;
@@ -229,5 +224,8 @@
   }
   span:nth-child(2n-1){
     color: #fffd8a;
+  }
+  .baseMsg,.want,.like,.get,.doWhat,.aboutMe{
+    border-bottom: 2px solid $borderColor;
   }
 </style>
