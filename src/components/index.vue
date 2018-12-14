@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
  <h2 style="display: inline-block;margin-top: 30px;height:50px;width:100px;" v-color>{{msg.title}}</h2>
-    <img src="../common/img/me.jpg" alt="个人照" :style="imgStyle">
+    <img src="../common/img/me.jpg" alt="个人照" :style="imgStyle" @mouseover="big" @mouseleave="small">
     <div style="height:120px;width:270px;position: absolute;margin-top:-80px;box-shadow: 5px 5px 5px  #737373;border-radius: 2px;">
       姓名:{{msg.name}}<br>
       <hr>
@@ -73,6 +73,7 @@
         'position': 'absolute',
         'margin-left': '220px',
         'margin-top':'10px',
+        'box-shadow':'5px 5px 5px #bababa',
         '-webkit-transform':'rotate(-10deg)'
       },
       spanColor:{}
@@ -168,6 +169,14 @@
             }
           ]
         });
+      },
+      big(){
+        this.imgStyle.height='180px';
+        this.imgStyle.width='180px';
+      },
+      small(){
+        this.imgStyle.height='110px';
+        this.imgStyle.width='100px';
       }
       }
 }
