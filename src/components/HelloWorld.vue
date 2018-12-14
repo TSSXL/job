@@ -1,113 +1,137 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div class="contain">
+ <h2 style="display: inline-block;margin-top: 30px;height:50px;width:100px;">{{msg.title}}</h2>
+    <img :src="msg.imgSrc" alt="个人照" :style="imgStyle">
+    <div style="height:120px;width:270px;position: absolute;margin-top:-80px;box-shadow: 5px 5px 5px  #737373;border-radius: 2px;">
+      姓名:{{msg.name}}<br>
+      <hr>
+      年龄:{{msg.age}}<br>
+      <hr>
+      身高:{{msg.height}}<br>
+      <hr>
+      体重:{{msg.weight}}<br>
+      <hr>
+      生日:{{msg.born}}
+    </div>
+    <div class="baseMsg">
+      <el-input v-model="msg.school" :style="elInputStyle" :disabled="true"><i slot="prepend">学校</i></el-input>
+      <el-input v-model="msg.zy" :style="elInputStyle" :disabled="true"> <i slot="prepend">专业</i></el-input>
+      <el-input v-model="msg.xl" :style="elInputStyle" :disabled="true"> <i slot="prepend">学历</i></el-input>
+      <el-input v-model="msg.jg" :style="elInputStyle" :disabled="true"> <i slot="prepend">籍贯</i></el-input>
+      <el-input v-model="msg.phone" :style="elInputStyle" :disabled="true"> <i slot="prepend">电话</i></el-input>
+      <el-input v-model="msg.email" :style="elInputStyle" :disabled="true"> <i slot="prepend">邮箱</i></el-input>
+      <el-input v-model="msg.zzmm" :style="elInputStyle" :disabled="true"> <i slot="prepend">政治面貌</i></el-input>
+      <el-input v-model="msg.workTime" :style="elInputStyle" :disabled="true"> <i slot="prepend">工作经验</i></el-input>
+    </div>
+    <div class="want">
+      <el-input v-model="msg.qzyx" style="width:442px;margin-top:20px;margin-left: 0px; " :disabled="true"><i slot="prepend">求职意向</i></el-input>
+      <el-input v-model="msg.body" style="width:450px;"  :disabled="true"><i slot="prepend">健康状况</i></el-input>
+    </div>
+    <div class="like">
+      <p>兴趣爱好</p>
+      <div class="content" style="width:100%;height:160px;" >
+     <span v-for="item in msg.like" >{{item}}</span>
+      </div>
+    </div>
+    <div class="get">
+    <p>获得何种奖项/证书</p>
+  </div>
+    <div class="aboutMe">
+      <p>自我评价</p>
+      <el-progress :text-inside="true" :stroke-width="18" :percentage="70"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="18" :percentage="80" color="rgba(142, 113, 199, 0.7)"></el-progress>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+  import {getList} from "../api/table";
+
+  export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg:{},
+      like:[],
+      elInputStyle:{
+        'width':'220px',
+        'margin-top':'20px'
+      },
+      imgStyle:{
+        'height':'110px',
+        'width':'100px',
+        'display': 'inline-block',
+        'position': 'absolute',
+        'margin-left': '220px',
+        'margin-top':'10px',
+        '-webkit-transform':'rotate(-10deg)'
+      },
+      spanColor:{}
     }
-  }
+  },
+created(){
+  this._getList();
+},
+    methods:{
+    _getList(){
+    getList().then((ops)=>{
+    this.msg=ops.data[0];
+    })
+    }
+    }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.contain{
+  background-color: #a1a1a1;
+  height:800px;
+  width:900px;
+   margin: 5% auto;
+  box-shadow: 10px 10px 5px  #888888;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+  .baseMsg{
+    height:140px;
+    width:100%;
+    margin-top: 30px;
+    border-bottom: 2px solid #000000;
+  }
+  i{
+    color: #4d4d4d;
+  }
+  .want{
+    height:80px;
+    width:100%;
+    border-bottom: 2px solid #000000;
+  }
+  .like{
+    height:150px;
+    width:100%;
+    border-bottom: 2px solid #000000;
+    overflow: auto;
+  }
+  .get{
+    height:180px;
+    width:100%;
+    border-bottom: 2px solid #000000;
+  }
+.aboutMe{
+  height:130px;
+  width:100%;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  p{
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  span{
+    height:30px;
+    width:100%;
+    display: inline-block;
+    text-align: center;
+    font-weight: bolder;
+  }
+  span:nth-child(2n-1){
+    color: #fffd8a;
+  }
 </style>
