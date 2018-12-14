@@ -35,11 +35,17 @@
     </div>
     <div class="get">
     <p>获得何种奖项/证书</p>
+      <p>{{msg.english}}</p>
+      <p>{{msg.money}}</p>
   </div>
-    <div class="aboutMe">
+    <div class="doWhat">
+     <p>项目经验</p>
+      <p>
+        {{msg.doWhat}}
+      </p>
+    </div>
+    <div class="aboutMe" id="myChart">
       <p>自我评价</p>
-      <el-progress :text-inside="true" :stroke-width="18" :percentage="70"></el-progress>
-      <el-progress :text-inside="true" :stroke-width="18" :percentage="80" color="rgba(142, 113, 199, 0.7)"></el-progress>
     </div>
   </div>
 </template>
@@ -69,16 +75,93 @@
       spanColor:{}
     }
   },
-created(){
+    mounted(){
+    this.drawLine();
+    },
+    created(){
   this._getList();
-},
+     },
     methods:{
     _getList(){
     getList().then((ops)=>{
     this.msg=ops.data[0];
     })
-    }
-    }
+    },
+      drawLine() {
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        myChart.setOption({
+          backgroundColor: '#2c343c',
+          title: {
+            text: '个人能力分析',
+            left: 'left',
+            top: 40,
+            textStyle: {
+              color: '#ccc'
+            }
+          },
+
+          tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+
+          visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+              colorLightness: [0, 1]
+            }
+          },
+          series : [
+            {
+              name:'访问来源',
+              type:'pie',
+              radius : '55%',
+              center: ['50%', '50%'],
+              data:[
+                {value:300, name:'js'},
+                {value:350, name:'html'},
+                {value:350, name:'css'},
+                {value:235, name:'jquey'},
+                {value:400, name:'vue'}
+              ].sort(function (a, b) { return a.value - b.value; }),
+              roseType: 'radius',
+              label: {
+                normal: {
+                  textStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: '#c23531',
+                  shadowBlur: 200,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              }
+            }
+          ]
+        });
+      }
+      }
 }
 </script>
 
@@ -112,13 +195,19 @@ created(){
     overflow: auto;
   }
   .get{
-    height:180px;
+    height:80px;
+    width:100%;
+    border-bottom: 2px solid #000000;
+  }
+  .doWhat{
+    height:60px;
     width:100%;
     border-bottom: 2px solid #000000;
   }
 .aboutMe{
-  height:130px;
+  height:110px;
   width:100%;
+  border-bottom: 2px solid #000000;
 }
   p{
     font-size: 20px;
