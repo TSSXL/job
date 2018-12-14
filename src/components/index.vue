@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
  <h2 style="display: inline-block;margin-top: 30px;height:50px;width:100px;">{{msg.title}}</h2>
-    <img :src="msg.imgSrc" alt="个人照" :style="imgStyle">
+    <img src="../common/img/me.jpg" alt="个人照" :style="imgStyle">
     <div style="height:120px;width:270px;position: absolute;margin-top:-80px;box-shadow: 5px 5px 5px  #737373;border-radius: 2px;">
       姓名:{{msg.name}}<br>
       <hr>
@@ -45,7 +45,10 @@
       </p>
     </div>
     <div class="aboutMe" id="myChart">
-      <p>自我评价</p>
+    </div>
+    <div class="foot">
+     <p>{{msg.zwpj}}</p>
+      <p>{{msg.github}}</p>
     </div>
   </div>
 </template>
@@ -54,7 +57,7 @@
   import {getList} from "../api/table";
 
   export default {
-  name: 'HelloWorld',
+  name: 'index',
   data () {
     return {
       msg:{},
@@ -219,6 +222,10 @@
     display: inline-block;
     text-align: center;
     font-weight: bolder;
+  }
+  .foot{
+    height:55px;
+    width:100%;
   }
   span:nth-child(2n-1){
     color: #fffd8a;
