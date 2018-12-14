@@ -1,6 +1,6 @@
 <template>
   <div class="contain">
- <h2 style="display: inline-block;margin-top: 30px;height:50px;width:100px;">{{msg.title}}</h2>
+ <h2 style="display: inline-block;margin-top: 30px;height:50px;width:100px;" v-color>{{msg.title}}</h2>
     <img src="../common/img/me.jpg" alt="个人照" :style="imgStyle">
     <div style="height:120px;width:270px;position: absolute;margin-top:-80px;box-shadow: 5px 5px 5px  #737373;border-radius: 2px;">
       姓名:{{msg.name}}<br>
@@ -78,6 +78,11 @@
       spanColor:{}
     }
   },
+    directives:{
+     color:function (el,binding) {
+      el.style.color='black';
+     }
+    },
     mounted(){
     this.drawLine();
     },
